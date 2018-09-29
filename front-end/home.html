@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <title>ToDo Application</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="todo.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+    <div ng-app="ToDoApp" ng-controller="ToDoCtrl">
+        <div class="container" ng-init="getAllTodos()">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="todolist not-done">
+                        <h1>Todos</h1>
+                        <div class="input-group">
+                            <input type="text" ng-model="newToDo" class="form-control add-todo" placeholder="Add todo">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default btn btn-primary" ng-click="addTodo(newToDo)">
+                                    <i class="glyphicon glyphicon-add"></i>Add
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- <button id="checkAll" class="btn btn-success" ng-click="AddToCompleted()">Mark as done</button> -->
+                        <hr>
+                        <ul id="sortable" class="list-unstyled">
+                            <li class="ui-state-default" ng-repeat="todo in todos | filter:{done:false }">
+                                <div class="checkbox">
+                                    <label>
+                                        {{todo.text}}
+                                    </label>
+                                    <button class="remove-item btn btn-danger btn-xs pull-right" ng-click="deleteToDo(todo)"><span
+                                            class="glyphicon glyphicon-remove"></span>
+                                    </button>
+                                    <button class="remove-item btn btn-success btn-xs pull-right" ng-click="AddToCompleted(todo)"><span
+                                            class="glyphicon glyphicon-ok"></span>
+                                    </button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="todolist">
+                        <h1>Already Done</h1>
+                        <ul id="done-items" class="list-unstyled">
+                            <li ng-repeat="todo in todos | filter:{done:true }">{{todo.text}}
+                                <!-- <button class="remove-item btn btn-danger btn-xs pull-right">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button> -->
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
